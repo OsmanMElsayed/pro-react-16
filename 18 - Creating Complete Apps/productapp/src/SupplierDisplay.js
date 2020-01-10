@@ -5,7 +5,9 @@ import { SupplierTable } from "./SupplierTable";
 import { saveSupplier, deleteSupplier } from './store';
 
 const mapStateToProps = (storeData) => ({
-    suppliers: storeData.suppliers
+    suppliers: storeData.modelData.suppliers,
+    showEditor: storeData.stateData.showEditor,
+    selected: storeData.stateData.selectedModel
 });
 
 const mapDispatchToProps = {
@@ -34,22 +36,9 @@ export const SupplierDisplay = connnectFunction(
             this.setState({ showEditor: true, selected: {} })
         }
 
-        cancelEditing = () => {
-            this.setState({ showEditor: false, selected: null })
-        }
-
-        saveSupplier = (supplier) => {
-            this.props.saveCallback(supplier);
-            this.setState({ showEditor: false, selected: null })
-        }
-
         render() {
-            if (this.state.showEditor) {
-                return <SupplierEditor
-                    key={this.state.selected.id || -1}
-                    supplier={this.state.selected}
-                    saveCallback={this.saveSupplier}
-                    cancelCallback={this.cancelEditing} />
+            if (this.props.showEditor) {
+                return <SupplierEditor />
             } else {
                 return <div className="m-2">
                     <SupplierTable suppliers={this.props.suppliers}

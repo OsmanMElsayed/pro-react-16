@@ -5,7 +5,7 @@ import { ProductEditor } from "./ProductEditor";
 import { saveProduct, deleteProduct } from './store';
 
 const mapStateToProps = (storeData) => ({
-    products: storeData.products
+    products: storeData.modelData.products
 });
 
 const mapDispatchToProps = {
